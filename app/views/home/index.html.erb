@@ -1,0 +1,31 @@
+<div class="container">
+
+  <div class="p-5">
+  <% if flash[:alert] %>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+  <div class="card">
+      <div class="card-body">
+      <%= form_with model: @link, html: { data: { turbolinks: false } } do |form| %>
+          <h5 class='card-title'>Enter a URL to shorten</h5>
+          <%= form.text_field :original_url, class: "form-control", placeholder: "Enter URL..." %>
+          <%= form.submit "Shorten", class: "btn btn-primary mt-2" %>
+        <% end %>
+      </div>
+      <div id="short-link">
+      </div>
+      <% if @links.present? %>
+    <% @links.each do |link| %>
+        <% if link.present? %>
+  <p>Original Link: <%= link.original_url %></p>
+  <p>Shortened Link: <%= link.lookup_code %></p>
+  <%= link_to  "#{root_url}#{link.lookup_code}" , "#{root_url}#{link.lookup_code}" %>
+  <% end %>
+  <% end %>
+  <% end %>
+      </div>
+
+  </div>
+</div>
